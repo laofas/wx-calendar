@@ -1,0 +1,54 @@
+<!--components/calendar/index.wxml-->
+
+<view class='calendar {{viewType + "-view"}}'>
+
+
+    <view class='week-label-row'>
+        <view wx:for='{{weekLabel}}' wx:key='{{index}}'>
+            {{item}}
+        </view>
+    </view>
+
+
+    <swiper 
+        circular
+        duration='300'
+        current='{{currentIndex}}'
+        bindchange='swiperChange'
+        bindanimationfinish='swiperFinish'
+        bindtouchstart='startTouch' 
+        bindtouchmove='moveTouch' 
+        bindtouchend='endTouch' 
+        bindtouchcancel='cancelTouch'
+        >
+        
+
+        <swiper-item 
+            wx:for='{{views}}' 
+            wx:key='{{index}}'
+            >
+
+            <view 
+                class='grid'
+                style='top:{{topValues[index]}}rpx'
+                >
+
+                <view 
+                    wx:for='{{item}}' 
+                    wx:for-item='dayItem' 
+                    wx:for-index='dayIndex' 
+                    wx:key='{{dayIndex}}' 
+                    bindtap='selectDate'
+                    data-data='{{dayItem}}'
+                    class='item item-{{dayItem.type}}{{viewIndex==index&&currentDate==dayItem.date?" selected":""}}'>
+
+                    <view class='inner'>
+                        <view class='solar-day-label'>{{dayItem.day}}</view>
+                        <view class='lunar-day-label'>{{dayItem.lunar.IDayCn}}</view>
+                    </view>
+
+                </view>
+            </view>
+        </swiper-item>
+    </swiper>
+</view>

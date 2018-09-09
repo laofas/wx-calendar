@@ -51,7 +51,6 @@ const STORE = {
 		next: 0
 	}];
 
-
 /**
  * 获取单个 “月” 视图，并且缓存
  * @param  {String} date       传入年份+月份的字符串形式
@@ -138,7 +137,9 @@ function getDiffDate(date, diff) {
  * @return {Number}      
  */
 function getTop(view, date) {
-	return Math.floor(view.findIndex(item => item.date == date) / 7) * (view.length == 42 ? 95 : 120);
+	let grid42 = view.length == 42,
+		value = Math.floor(view.findIndex(item => item.date == date) / 7) * (grid42 ? 95 : 120);
+	return grid42 && value == 475 || value == 480 ? value + 1 : value;
 }
 
 
@@ -286,7 +287,7 @@ Component({
 		// height: 600,
 		topValues: [0, 0, 0],
 		currentDate: "",
-		// animate: "",
+		animate: "",
 	},
 
 
@@ -318,17 +319,24 @@ Component({
 
 		selectDate(evt) {
 			let setData = {},
-				data = evt.currentTarget.dataset.data;
+				data = evt.currentTarget.dataset.data,
+				date = data.date,
+				isWeekView = this.data.viewType == "week";
+
 			if (data.type != "current") {
-				if (this.data.viewType == "month") {
-					setData.currentIndex = SIBLING[STORE.index][data.type]
-				} else {
-					setData = refreshWeekViews(data.date);
+				if (isWeekView) {
+					setData = refreshWeekViews(date);
 					setData.animate = "";
+				} else {
+					setData.currentIndex = SIBLING[STORE.index][data.type]
 				}
 				this.setData(setData);
 			}
-			this.setDate(data.date);
+			if (isWeekView) {
+				STORE.prevWeek = getDiffDate(date, -7);
+				STORE.nextWeek = getDiffDate(date, 7);
+			}
+			this.setDate(date);
 		},
 
 		setDate(date) {
@@ -395,7 +403,7 @@ Component({
 						data.topValues = [0, 0, 0];
 					}
 
-					// data.animate = "animate";
+					data.animate = "animate";
 
 					this.setData(data);
 

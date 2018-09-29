@@ -1,0 +1,11 @@
+<!--pages/index/index.wxml-->
+<view>
+
+    <picker mode='date' bindchange='change' value='={{month}}'>
+        <view>{{month}}</view>
+    </picker>
+
+    <calendar value='{{month}}' bindchange='change' />
+
+    <view class='github-link'>https://github.com/shixianqin/wx-calendar</view>
+</view>

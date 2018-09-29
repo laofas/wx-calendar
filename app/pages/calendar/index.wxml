@@ -1,6 +1,6 @@
 <!--components/calendar/index.wxml-->
 
-<view class='calendar {{viewType + "-view"}}'>
+<view class='{{["calendar",hideEdge,viewType+"-view"]}}'>
 
 
     <view class='week-label-row'>
@@ -16,10 +16,12 @@
         current='{{currentIndex}}'
         bindchange='swiperChange'
         bindanimationfinish='swiperFinish'
+        bindtransitionend='transitionEnd'
         bindtouchstart='startTouch' 
         bindtouchmove='moveTouch' 
         bindtouchend='endTouch' 
         bindtouchcancel='cancelTouch'
+        class='{{animate}}'
         >
         
 
@@ -40,11 +42,12 @@
                     wx:key='{{dayIndex}}' 
                     bindtap='selectDate'
                     data-data='{{dayItem}}'
-                    class='item item-{{dayItem.type}}{{viewIndex==index&&currentDate==dayItem.date?" selected":""}}'>
+                    class='item item-{{ dayItem.type }}{{ viewIndex == index && currentDate == dayItem.date ? " selected" : "" }}'
+                    >
 
-                    <view class='inner'>
+                    <view class='inner{{ indicator[dayItem.date] ? " indicator indicator-" + themeColors[indicator[dayItem.date]] : "" }}'>
                         <view class='solar-day-label'>{{dayItem.day}}</view>
-                        <view class='lunar-day-label'>{{dayItem.lunar.IDayCn}}</view>
+                        <view class='lunar-day-label'>{{dayItem.label}}</view>
                     </view>
 
                 </view>

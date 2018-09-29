@@ -1,0 +1,140 @@
+/* components/calendar/index.wxss */
+
+.calendar {
+    background: #fcfcfc;
+    position: relative;
+}
+
+swiper {
+    height: 600rpx;
+    position: relative;
+}
+
+.hide-edge swiper:before, .hide-edge swiper:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 10rpx;
+    width: 100%;
+    background: #fcfcfc;
+    z-index: 10;
+}
+
+.hide-edge swiper:after {
+    top: auto;
+    bottom: 0;
+}
+
+swiper.animate, swiper.animate .grid {
+    transition: all 0.3s;
+}
+
+.week-view swiper {
+    height: 120rpx;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-between;
+    box-sizing: border-box;
+    position: relative;
+    padding: 17rpx 0;
+    height: 600rpx;
+}
+
+.item, .week-label-row view {
+    max-width: 14.286%;
+    flex: 0 0 14.286%;
+    text-align: center;
+    box-sizing: border-box;
+    color: #9f9f9f;
+}
+
+.inner {
+    width: 86rpx;
+    height: 86rpx;
+    border-radius: 50rpx;
+    display: inline-block;
+    padding: 15rpx 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.inner.indicator:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    margin-left: -5rpx;
+    width: 10rpx;
+    height: 10rpx;
+    border-radius: 5rpx;
+    background: #c7c7c7;
+}
+
+/* 指示灯颜色 */
+
+.inner.indicator-secondary:before {
+    background: #c7c7c7;
+}
+
+.inner.indicator-primary:before {
+    background: #0099d3;
+}
+
+.inner.indicator-warn:before {
+    background: #ff752a;
+}
+
+/*  */
+
+.week-view .inner, .item-current .inner {
+    color: #111;
+}
+
+.solar-day-label {
+    height: 34rpx;
+    font-size: 34rpx;
+    line-height: 34rpx;
+}
+
+.lunar-day-label {
+    height: 26rpx;
+    font-size: 20rpx;
+    line-height: 26rpx;
+    color: #828282;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* 激活样式 */
+
+.week-view .selected .inner, .item-current.selected .inner {
+    background: #0099d3;
+    color: #fcfcfc;
+}
+
+.week-view .selected .lunar-day-label, .item-current.selected .lunar-day-label {
+    color: #fcfcfc;
+}
+
+.selected .inner.indicator:before {
+    display: none;
+}
+
+/* 星期标题行 */
+
+.week-label-row {
+    display: flex;
+    height: 40rpx;
+    line-height: 40rpx;
+}
+
+.week-label-row view {
+    font-size: 30rpx;
+    color: #222;
+}
